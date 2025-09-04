@@ -1,7 +1,9 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import { useSidebar } from "../SidebarContext";
 
 export default function SidebarItem({ label, icon: Icon, link }) {
+  const { isOpen } = useSidebar();
   return (
     <NavLink
       to={link}
@@ -12,7 +14,15 @@ export default function SidebarItem({ label, icon: Icon, link }) {
       }
     >
       <Icon size={22} />
-      <span>{label}</span>
+      {isOpen && (
+        <span
+          className={`transition-all duration-300 overflow-hidden whitespace-nowrap ${
+            isOpen ? "opacity-100 w-auto ml-2" : "opacity-0 w-0 ml-0"
+          }`}
+        >
+          {label}
+        </span>
+      )}
     </NavLink>
   );
 }
