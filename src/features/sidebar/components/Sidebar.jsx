@@ -1,62 +1,23 @@
-import React, { useState, createContext, useContext } from "react";
-import { BsThreeDots } from "react-icons/bs";
-import { PiPerson } from "react-icons/pi";
-import { NavLink } from "react-router-dom";
+import React from "react";
 
-const SidebarContext = createContext();
+import SidebarHeader from "./SidebarHeader";
+import SidebarFooter from "./SidebarFooter";
+import SidebarNav from "./SidebarNav";
+import { RiArrowLeftDoubleFill } from "react-icons/ri";
 
-export default function Sidebar({ children }) {
-  const [isOpen, setIsOpen] = useState(true);
-  const toggleSidebar = () => setIsOpen((prev) => !prev);
-
+export default function Sidebar() {
+  const user = { firstName: "Davit", lastName: "Beridze" };
   return (
-    <SidebarContext.Provider value={{ isOpen, toggleSidebar }}>
-      <div
-        className={`bg-[#132450] h-screen flex flex-col text-gray-50 transition-all duration-300 w-64 text-[0.87rem] `}
-      >
-        {children}
+    <div className="flex flex-col justify-between h-screen bg-[#132450] text-[0.87rem] text-gray-100 w-[240px]">
+      <div className="flex justify-end pt-3 px-5">
+        <RiArrowLeftDoubleFill size={21} className="cursor-pointer" />
       </div>
-    </SidebarContext.Provider>
+
+      <SidebarHeader />
+
+      <SidebarNav />
+
+      <SidebarFooter user={user} />
+    </div>
   );
 }
-
-// Sub Comp
-
-Sidebar.Header = function Header({ companyLogo, companyName }) {
-  return (
-    <div className="flex items-center gap-2">
-      <img src={companyLogo} alt="Company Logo" className="w-16 h-16" />
-      <span className="text-sm uppercase font-bold tracking-wider">
-        {companyName}
-      </span>
-    </div>
-  );
-};
-
-Sidebar.Item = function Item({ link, icon: Icon, label }) {
-  const { isOpen } = useContext(SidebarContext);
-
-  return (
-    <NavLink
-      to={link}
-      className={({ isActive }) =>
-        isActive ? "text-red-500" : "text-gray-500"
-      }
-    >
-      <Icon size={22} />
-      <span className="text-[0.88rem] font-medium">{label}</span>
-    </NavLink>
-  );
-};
-
-Sidebar.Footer = function Footer({ user: { firstName, lastName } }) {
-  return (
-    <div className="flex items-center p-4 justify-between border-t border-t-[#9EB9FF33]">
-      <div className="flex items-center gap-1">
-        <PiPerson />
-        <p>{`${firstName} ${lastName}`}</p>
-      </div>
-      <BsThreeDots />
-    </div>
-  );
-};

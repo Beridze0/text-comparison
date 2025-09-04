@@ -7,11 +7,11 @@ import ComparisonPage from "./pages/ComparisonPage";
 
 export default function App() {
   return (
-    <Layout>
-      <Routes>
+    <Routes>
+      <Route path="/" element={<Layout />}>
         <Route path="/" element={<MainPage />} />
         <Route path="/comparison" element={<ComparisonPage />} />
-      </Routes>
-    </Layout>
+      </Route>
+    </Routes>
   );
 }
