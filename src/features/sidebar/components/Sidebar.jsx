@@ -1,6 +1,7 @@
 import React, { useState, createContext, useContext } from "react";
 import { BsThreeDots } from "react-icons/bs";
 import { PiPerson } from "react-icons/pi";
+import { NavLink } from "react-router-dom";
 
 const SidebarContext = createContext();
 
@@ -33,11 +34,18 @@ Sidebar.Header = function Header({ companyLogo, companyName }) {
 };
 
 Sidebar.Item = function Item({ link, icon: Icon, label }) {
+  const { isOpen } = useContext(SidebarContext);
+
   return (
-    <div className="flex items-center gap-2">
+    <NavLink
+      to={link}
+      className={({ isActive }) =>
+        isActive ? "text-red-500" : "text-gray-500"
+      }
+    >
       <Icon size={22} />
-      <span>{label}</span>
-    </div>
+      <span className="text-[0.88rem] font-medium">{label}</span>
+    </NavLink>
   );
 };
 

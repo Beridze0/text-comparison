@@ -1,11 +1,17 @@
 import React from "react";
 import Layout from "./Layout";
+import "./index.css";
+import { Route, Routes } from "react-router-dom";
+import MainPage from "./pages/MainPage";
+import ComparisonPage from "./pages/ComparisonPage";
 
 export default function App() {
   return (
     <Layout>
-      <h1 className="text-2xl font-bold">Main Content</h1>
-      <p>This is the main content area. Add your pages/components here.</p>
+      <Routes>
+        <Route path="/" element={<MainPage />} />
+        <Route path="/comparison" element={<ComparisonPage />} />
+      </Routes>
     </Layout>
   );
 }
