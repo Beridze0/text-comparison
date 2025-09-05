@@ -7,7 +7,7 @@ export default function ComparisonPage() {
   return (
     <div className="p-3 w-full text-sm ">
       {/* Head */}
-      <div className="flex items-center justify-between border-b">
+      <div className="flex items-center justify-between pb-3 border-b ">
         <div className="flex items-center gap-3">
           <select
             name="languages"
