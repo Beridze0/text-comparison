@@ -1,6 +1,6 @@
 import React from "react";
 import { BiPlusCircle } from "react-icons/bi";
-import ComparisonForm from "../features/comparison/ComparisonForm";
+import ComparisonForm from "../features/comparison/ComparisonForms";
 import Button from "../ui/Button";
 
 export default function ComparisonPage() {
