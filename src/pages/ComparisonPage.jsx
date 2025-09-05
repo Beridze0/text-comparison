@@ -1,11 +1,13 @@
 import React from "react";
 import { BiPlusCircle } from "react-icons/bi";
+import ComparisonForm from "../features/comparison/ComparisonForm";
+import Button from "../ui/Button";
 
 export default function ComparisonPage() {
   return (
-    <div className="p-3 w-full text-sm">
+    <div className="p-3 w-full text-sm ">
       {/* Head */}
-      <div className="flex items-center justify-between ">
+      <div className="flex items-center justify-between border-b">
         <div className="flex items-center gap-3">
           <select
             name="languages"
@@ -20,11 +22,10 @@ export default function ComparisonPage() {
             <span>ფორმატის შენარჩუნება</span>
           </label>
         </div>
-        <div className="flex items-center gap-2  p-3 rounded-lg bg-[#383A4899] text-white">
-          <BiPlusCircle size={20} />
-          <span>ახლის გახსნა</span>
-        </div>
+        <Button text="ახლის გახსნა" icon={BiPlusCircle} iconSize={20} />
       </div>
+
+      <ComparisonForm />
     </div>
   );
 }

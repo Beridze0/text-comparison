@@ -1,7 +1,7 @@
 import React from "react";
 import { HiOutlineDotsHorizontal } from "react-icons/hi";
 import Avatar from "../../../ui/Avatar";
-import { useSidebar } from "../SidebarContext";
+import { useSidebar } from "../../../context/SidebarContext";
 
 export default function SidebarFooter({ user }) {
   const { isOpen } = useSidebar();

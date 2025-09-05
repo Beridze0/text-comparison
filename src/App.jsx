@@ -1,5 +1,5 @@
 import React from "react";
-import Layout from "./Layout";
+import AppLayout from "./layout/AppLayout";
 import "./index.css";
 import { Route, Routes } from "react-router-dom";
 import MainPage from "./pages/MainPage";
@@ -8,7 +8,7 @@ import ComparisonPage from "./pages/ComparisonPage";
 export default function App() {
   return (
     <Routes>
-      <Route path="/" element={<Layout />}>
+      <Route element={<AppLayout />}>
         <Route path="/" element={<MainPage />} />
         <Route path="/comparison" element={<ComparisonPage />} />
       </Route>

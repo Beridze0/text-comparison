@@ -4,15 +4,17 @@ const SidebarContext = createContext();
 
 export function SidebarProvider({ children }) {
   const [isOpen, setIsOpen] = useState(true);
-  const toggleSidebar = () => setIsOpen((prev) => !prev);
+  const toggle = () => setIsOpen((prev) => !prev);
 
   return (
-    <SidebarContext.Provider value={{ isOpen, toggleSidebar }}>
+    <SidebarContext.Provider value={{ isOpen, toggle }}>
       {children}
     </SidebarContext.Provider>
   );
 }
 
 export function useSidebar() {
-  return useContext(SidebarContext);
+  const ctx = useContext(SidebarContext);
+  if (!ctx) throw new Error("useSidebar must be used inside <SidebarProvider>");
+  return ctx;
 }
