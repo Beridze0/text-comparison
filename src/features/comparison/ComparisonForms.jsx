@@ -7,26 +7,37 @@ import Loading from "../../ui/Loading";
 export default function ComparisonForms() {
   const [textA, setTextA] = useState("");
   const [textB, setTextB] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [progress, setProgress] = useState(0);
 
-  async function handleCompare() {
+  function handleCompare() {
     setIsLoading(true);
+    setProgress(0);
 
-    for (let i = 1; i <= 100; i++) {
-      await new Promise((resolve) => setTimeout(resolve, 30));
-      setProgress(i);
+    const start = performance.now();
+    const duration = 2500;
+
+    function animate(now) {
+      const elapsed = now - start;
+      const percent = Math.min((elapsed / duration) * 100, 100);
+
+      setProgress(Math.floor(percent));
+
+      if (percent < 100) {
+        requestAnimationFrame(animate);
+      } else {
+        setIsLoading(false);
+        console.log("Compared texts", textA, textB);
+      }
     }
 
-    setIsLoading(false);
-
-    console.log("Compared texts", textA, textB);
+    requestAnimationFrame(animate);
   }
 
   return (
-    <div className="flex flex-col mt-10">
+    <div className="flex flex-col mt-10 w-full">
       {isLoading ? (
-        <Loading />
+        <Loading progress={progress} />
       ) : (
         <>
           <div className="flex items-center justify-between gap-2">
