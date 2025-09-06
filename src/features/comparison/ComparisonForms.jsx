@@ -32,6 +32,22 @@ export default function ComparisonForms() {
     }
 
     requestAnimationFrame(animate);
+    showDifference();
+  }
+
+  function showDifference() {
+    const splittedA = textA.split(" ");
+    const splittedB = textB.split(" ");
+
+    const length =
+      splittedA.length > splittedB.length ? splittedA.length : splittedB.length;
+    console.log(length);
+
+    for (let i = 0; i < length; i++) {
+      console.log(splittedB[i]);
+    }
+
+    console.log(splittedA, splittedB);
   }
 
   return (

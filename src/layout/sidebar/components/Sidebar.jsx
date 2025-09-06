@@ -29,7 +29,7 @@ export default function Sidebar() {
         />
       </div>
 
-      <SidebarHeader />
+      {/* <SidebarHeader /> */}
 
       <SidebarNav />
 
