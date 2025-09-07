@@ -12,16 +12,13 @@ export function diffTexts(textA, textB) {
     const isWhitespace = /^\s+$/.test(data);
 
     if (op === 0) {
-      // unchanged → add to both
       resultA.push({ text: data, type: "same" });
       resultB.push({ text: data, type: "same" });
     }
     if (op === -1 && !isWhitespace) {
-      // removed → only in A
       resultA.push({ text: data, type: "removed" });
     }
     if (op === 1 && !isWhitespace) {
-      // added → only in B
       resultB.push({ text: data, type: "added" });
     }
   }

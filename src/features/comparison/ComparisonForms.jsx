@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import { TfiArrowsHorizontal } from "react-icons/tfi";
-import Button from "../../ui/Button";
 import { diffTexts } from "../../utils/diffTexts";
-import DiffAreaDisplay from "./DiffAreaDisplay";
-import Loading from "../../ui/Loading"; // your loading component
+import Loading from "../../ui/Loading";
+
+import ComparisonArea from "./ComparisonArea";
+import CompareActions from "./CompareActions";
 
 export default function ComparisonForms() {
   const [textA, setTextA] = useState("");
   const [textB, setTextB] = useState("");
   const [diffs, setDiffs] = useState(null);
-
   const [isLoading, setIsLoading] = useState(false);
   const [progress, setProgress] = useState(0);
 
@@ -18,12 +18,11 @@ export default function ComparisonForms() {
     setProgress(0);
 
     const start = performance.now();
-    const duration = 2000; // 2s animation
+    const duration = 2000;
 
     function animate(now) {
       const elapsed = now - start;
       const percent = Math.min((elapsed / duration) * 100, 100);
-
       setProgress(Math.floor(percent));
 
       if (percent < 100) {
@@ -50,44 +49,30 @@ export default function ComparisonForms() {
       ) : (
         <>
           <div className="flex items-center justify-between">
-            <div className="min-h-[380px]  flex-1">
-              {diffs ? (
-                <DiffAreaDisplay tokens={diffs.resultA} />
-              ) : (
-                <textarea
-                  className="w-full h-[380px] p-4  bg-[#F0F7FF]  rounded font-mono text-sm resize-none outline-none"
-                  placeholder="დაიწყე წერა"
-                  value={textA}
-                  onChange={(e) => setTextA(e.target.value)}
-                />
-              )}
-            </div>
+            <ComparisonArea
+              value={textA}
+              onChange={setTextA}
+              tokens={diffs?.resultA}
+              placeholder="დაიწყე წერა"
+            />
 
             <div className="px-4">
               <TfiArrowsHorizontal size={20} />
             </div>
 
-            <div className="min-h-[380px] flex-1">
-              {diffs ? (
-                <DiffAreaDisplay tokens={diffs.resultB} />
-              ) : (
-                <textarea
-                  className="w-full h-[380px] p-4  rounded font-mono text-sm bg-[#F0F7FF] resize-none outline-none"
-                  placeholder="დაიწყე წერა"
-                  value={textB}
-                  onChange={(e) => setTextB(e.target.value)}
-                />
-              )}
-            </div>
+            <ComparisonArea
+              value={textB}
+              onChange={setTextB}
+              tokens={diffs?.resultB}
+              placeholder="დაიწყე წერა"
+            />
           </div>
 
-          <div className="flex gap-2 items-center justify-center">
-            {diffs ? (
-              <Button text="ჩასწორება" onClick={resetToEdit} style="px-3" />
-            ) : (
-              <Button text="შედარება" onClick={handleCompare} style="px-9" />
-            )}
-          </div>
+          <CompareActions
+            diffs={diffs}
+            onCompare={handleCompare}
+            onReset={resetToEdit}
+          />
         </>
       )}
     </div>
