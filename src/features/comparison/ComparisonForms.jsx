@@ -1,70 +1,116 @@
+// features/comparison/ComparisonForms.jsx
 import React, { useState } from "react";
 import { TfiArrowsHorizontal } from "react-icons/tfi";
 import Button from "../../ui/Button";
-import Loading from "../../ui/Loading";
-import { diffTexts } from "../../utils/diffTexts";
-import DiffArea from "./DiffArea";
+import { diffChars } from "../../utils/diffChars";
+import { diffWords } from "../../utils/diffWords";
+import DiffAreaDisplay from "./DiffAreaDisplay";
 
 export default function ComparisonForms() {
   const [textA, setTextA] = useState("");
   const [textB, setTextB] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const [progress, setProgress] = useState(0);
-  const [diffResult, setDiffResult] = useState(null);
+
+  // null means "edit mode"
+  const [result, setResult] = useState(null);
+  const [mode, setMode] = useState("letters"); // "letters" on 1st click, then "words" afterwards
+  const [clickCount, setClickCount] = useState(0);
 
   function handleCompare() {
-    setIsLoading(true);
-    setProgress(0);
+    const nextMode = clickCount === 0 ? "letters" : "words";
+    setMode(nextMode);
 
-    const start = performance.now();
-    const duration = 2500;
+    let diff =
+      nextMode === "letters"
+        ? diffChars(textA, textB)
+        : diffWords(textA, textB);
 
-    function animate(now) {
-      const elapsed = now - start;
-      const percent = Math.min((elapsed / duration) * 100, 100);
-
-      setProgress(Math.floor(percent));
-
-      if (percent < 100) {
-        requestAnimationFrame(animate);
-      } else {
-        const result = diffTexts(textA, textB);
-        setDiffResult(result);
-        setIsLoading(false);
-      }
+    // 🔹 after first compare, treat all differences as "added"
+    if (clickCount > 0 && nextMode === "words") {
+      diff.resultA = diff.resultA.map((t) =>
+        t.same ? t : { ...t, added: true, removed: false }
+      );
+      diff.resultB = diff.resultB.map((t) =>
+        t.same ? t : { ...t, added: true, removed: false }
+      );
     }
 
-    requestAnimationFrame(animate);
+    setResult(diff);
+    setClickCount((c) => c + 1);
   }
 
-  return (
-    <div className="flex flex-col mt-10 w-full">
-      {isLoading ? (
-        <Loading progress={progress} />
-      ) : (
-        <>
-          {/* Text input fields */}
-          <div className="flex items-center justify-between gap-2">
-            <DiffArea
-              value={textA}
-              onChange={setTextA}
-              diff={diffResult ? diffResult.resultA : null}
-              placeholder="Text A…"
-            />
-            <TfiArrowsHorizontal size={20} />
-            <DiffArea
-              value={textB}
-              onChange={setTextB}
-              diff={diffResult ? diffResult.resultB : null}
-              placeholder="Text B…"
-            />
-          </div>
+  function resetToEdit() {
+    setResult(null);
+    // keep mode progression; if you want to always start from letters again, also reset clickCount:
+    // setClickCount(0); setMode("letters");
+  }
 
-          {/* Action button */}
-          <div className="flex mt-2 items-center justify-center">
-            <Button text="შედარება" onClick={handleCompare} />
-          </div>
-        </>
+  const inEdit = result === null;
+
+  return (
+    <div className="flex flex-col mt-10 w-full gap-4">
+      <div className="grid grid-cols-[1fr_auto_1fr] gap-3 items-start">
+        {/* Left */}
+        <div className="min-h-[220px]">
+          {inEdit ? (
+            <textarea
+              className="w-full h-[220px] p-3 border border-gray-300 rounded font-mono text-sm resize-none"
+              placeholder="Text A…"
+              value={textA}
+              onChange={(e) => setTextA(e.target.value)}
+            />
+          ) : (
+            <DiffAreaDisplay tokens={result.resultA} mode={mode} />
+          )}
+        </div>
+
+        <div className="pt-2">
+          <TfiArrowsHorizontal size={20} />
+        </div>
+
+        {/* Right */}
+        <div className="min-h-[220px]">
+          {inEdit ? (
+            <textarea
+              className="w-full h-[220px] p-3 border border-gray-300 rounded font-mono text-sm resize-none"
+              placeholder="Text B…"
+              value={textB}
+              onChange={(e) => setTextB(e.target.value)}
+            />
+          ) : (
+            <DiffAreaDisplay tokens={result.resultB} mode={mode} />
+          )}
+        </div>
+      </div>
+
+      <div className="flex gap-2 items-center justify-center">
+        {inEdit ? (
+          <Button text="შედარება" onClick={handleCompare} />
+        ) : (
+          <>
+            <Button
+              text={
+                mode === "letters"
+                  ? "გაგრძელება (სიტყვებით)"
+                  : "თავიდან შედარება"
+              }
+              onClick={handleCompare}
+            />
+            <Button
+              text="ჩასწორება"
+              onClick={resetToEdit}
+              variant="secondary"
+            />
+          </>
+        )}
+      </div>
+
+      {!inEdit && (
+        <p className="text-xs text-center text-gray-500">
+          რეჟიმი:{" "}
+          {mode === "letters"
+            ? "ასოებით განსხვავებები (ლურჯი)"
+            : "დამატებული/წაშლილი სიტყვები (მწვანე/წითელი)"}
+        </p>
       )}
     </div>
   );
