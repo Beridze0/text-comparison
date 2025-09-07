@@ -1,14 +1,16 @@
 import React, { useState } from "react";
 import { TfiArrowsHorizontal } from "react-icons/tfi";
 import Button from "../../ui/Button";
-import ComparisonForm from "./ComparisonForm";
 import Loading from "../../ui/Loading";
+import { diffTexts } from "../../utils/diffTexts";
+import DiffArea from "./DiffArea";
 
 export default function ComparisonForms() {
   const [textA, setTextA] = useState("");
   const [textB, setTextB] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [progress, setProgress] = useState(0);
+  const [diffResult, setDiffResult] = useState(null);
 
   function handleCompare() {
     setIsLoading(true);
@@ -26,28 +28,13 @@ export default function ComparisonForms() {
       if (percent < 100) {
         requestAnimationFrame(animate);
       } else {
+        const result = diffTexts(textA, textB);
+        setDiffResult(result);
         setIsLoading(false);
-        console.log("Compared texts", textA, textB);
       }
     }
 
     requestAnimationFrame(animate);
-    showDifference();
-  }
-
-  function showDifference() {
-    const splittedA = textA.split(" ");
-    const splittedB = textB.split(" ");
-
-    const length =
-      splittedA.length > splittedB.length ? splittedA.length : splittedB.length;
-    console.log(length);
-
-    for (let i = 0; i < length; i++) {
-      console.log(splittedB[i]);
-    }
-
-    console.log(splittedA, splittedB);
   }
 
   return (
@@ -56,12 +43,24 @@ export default function ComparisonForms() {
         <Loading progress={progress} />
       ) : (
         <>
+          {/* Text input fields */}
           <div className="flex items-center justify-between gap-2">
-            <ComparisonForm onChange={setTextA} value={textA} />
+            <DiffArea
+              value={textA}
+              onChange={setTextA}
+              diff={diffResult ? diffResult.resultA : null}
+              placeholder="Text A…"
+            />
             <TfiArrowsHorizontal size={20} />
-            <ComparisonForm onChange={setTextB} value={textB} />
+            <DiffArea
+              value={textB}
+              onChange={setTextB}
+              diff={diffResult ? diffResult.resultB : null}
+              placeholder="Text B…"
+            />
           </div>
 
+          {/* Action button */}
           <div className="flex mt-2 items-center justify-center">
             <Button text="შედარება" onClick={handleCompare} />
           </div>

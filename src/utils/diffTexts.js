@@ -1,22 +1,23 @@
-// utils/diffTexts.js
 export function diffTexts(textA, textB) {
   const wordsA = textA.trim().split(/\s+/);
   const wordsB = textB.trim().split(/\s+/);
 
   const maxLength = Math.max(wordsA.length, wordsB.length);
-
-  const result = [];
+  const resultA = [];
+  const resultB = [];
 
   for (let i = 0; i < maxLength; i++) {
-    const wordA = wordsA[i] || "";
-    const wordB = wordsB[i] || "";
+    const a = wordsA[i] || "";
+    const b = wordsB[i] || "";
 
-    if (wordA === wordB) {
-      result.push({ word: wordA, same: true });
+    if (a === b) {
+      resultA.push({ word: a, same: true });
+      resultB.push({ word: b, same: true });
     } else {
-      result.push({ word: wordA || wordB, same: false });
+      if (a) resultA.push({ word: a, same: false });
+      if (b) resultB.push({ word: b, same: false });
     }
   }
 
-  return result;
+  return { resultA, resultB };
 }
