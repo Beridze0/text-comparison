@@ -2,22 +2,40 @@ import React from "react";
 
 export default function DiffAreaDisplay({ tokens }) {
   if (!tokens || tokens.length === 0) {
-    return <div className="p-3 text-sm text-gray-400">— empty —</div>;
+    return (
+      <div className="p-3  w-full h-[380px]  rounded font-mono text-sm whitespace-pre-wrap break-words bg-[#F0F7FF] text-gray-400">
+        ცარიელია
+      </div>
+    );
   }
 
   return (
-    <div className="p-3 border border-gray-300 rounded font-mono text-sm whitespace-pre-wrap break-words bg-white">
+    <div className="p-3  w-full h-[380px]  rounded font-mono text-sm whitespace-pre-wrap break-words bg-[#F0F7FF]">
       {tokens.map((t, i) => {
-        let cls = "";
-        if (t.same) cls = "";
-        else if (t.added) cls = "bg-green-300 rounded px-0.5";
-        else if (t.removed) cls = "bg-red-300 rounded px-0.5";
-
-        return (
-          <span key={i} className={cls}>
-            {t.text}
-          </span>
-        );
+        if (t.type === "same") {
+          return <span key={i}>{t.text}</span>;
+        }
+        if (t.type === "removed") {
+          return (
+            <span
+              key={i}
+              className="bg-red-200 text-red-700 line-through rounded px-0.5"
+            >
+              {t.text}
+            </span>
+          );
+        }
+        if (t.type === "added") {
+          return (
+            <span
+              key={i}
+              className="bg-green-200 text-green-800 rounded px-0.5"
+            >
+              {t.text}
+            </span>
+          );
+        }
+        return null;
       })}
     </div>
   );
