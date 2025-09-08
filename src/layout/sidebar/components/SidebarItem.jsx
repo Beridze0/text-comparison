@@ -2,11 +2,17 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { useSidebar } from "../../../context/SidebarContext";
 
-export default function SidebarItem({ label, icon: Icon, link }) {
+export default function SidebarItem({
+  onClick = null,
+  label,
+  icon: Icon,
+  link,
+}) {
   const { isOpen } = useSidebar();
   return (
     <NavLink
       to={link}
+      onClick={onClick}
       className={({ isActive }) =>
         `flex items-center gap-2 p-4 rounded-l-4xl 
       rounded-r-2xl hover:bg-white hover:text-black duration-300 ${

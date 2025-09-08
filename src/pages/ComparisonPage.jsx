@@ -1,28 +1,34 @@
-import React from "react";
+import React, { useState } from "react";
 import { BiPlusCircle } from "react-icons/bi";
 import ComparisonForm from "../features/comparison/ComparisonForms";
 import Button from "../ui/Button";
+import LanguageSelector from "../ui/LanguageSelector";
+import FormatCheckbox from "../ui/FormatCheckBox";
 
 export default function ComparisonPage() {
-  return (
-    <div className="p-3 w-full text-sm ">
-      {/* Head */}
-      <div className="flex items-center justify-between pb-3 border-b ">
-        <div className="flex items-center gap-3">
-          <select
-            name="languages"
-            className=" border border-[#51555B] p-3  rounded-md"
-          >
-            <option value="georgian">ქართული</option>
-            <option value="english">English</option>
-          </select>
+  const [language, setLanguage] = useState("georgian");
+  const [keepFormat, setKeepFormat] = useState(false);
 
-          <label className="flex items-center gap-2 cursor-pointer">
-            <input type="checkbox" />
-            <span>ფორმატის შენარჩუნება</span>
-          </label>
+  return (
+    <div className="p-3 w-full text-sm mt-2">
+      <div className="flex items-center justify-between pb-4 border-b border-gray-300">
+        <div className="flex items-center gap-4">
+          <LanguageSelector
+            value={language}
+            onChange={(e) => setLanguage(e.target.value)}
+          />
+          <FormatCheckbox
+            checked={keepFormat}
+            onChange={(e) => setKeepFormat(e.target.checked)}
+          />
         </div>
-        <Button text="ახლის გახსნა" icon={BiPlusCircle} iconSize={20} />
+
+        <Button
+          text="ახლის გახსნა"
+          icon={BiPlusCircle}
+          iconSize={20}
+          style="px-4"
+        />
       </div>
 
       <ComparisonForm />
