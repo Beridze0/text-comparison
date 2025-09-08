@@ -34,8 +34,8 @@ export default function Navbar() {
           className="flex  items-center gap-2 px-4 py-2 rounded-lg hover:cursor-pointer"
           onClick={() => setOpen((prev) => !prev)}
         >
-          <activeItem.icon size={20} />
-          <span className="font-semibold text-[0.94rem]">
+          <activeItem.icon className="size-5 sm:size-6" />
+          <span className="font-semibold sm:text-[0.94rem] text-[0.8rem]">
             {activeItem.label}
           </span>
           <IoIosArrowDown className="opacity-70 mt-1" size={13} />

@@ -7,9 +7,11 @@ export default function FormatCheckbox({ checked, onChange }) {
         type="checkbox"
         checked={checked}
         onChange={onChange}
-        className="w-4 h-4 rounded border-gray-400 text-indigo-600 focus:ring-indigo-500"
+        className="w-3 h-3 rounded sm:w-4 sm:h-4 border-gray-400 text-indigo-600 focus:ring-indigo-500"
       />
-      <span>ფორმატის შენარჩუნება</span>
+      <span className="sm:text-[0.9rem] text-[0.85rem]">
+        ფორმატის შენარჩუნება
+      </span>
     </label>
   );
 }
