@@ -48,7 +48,7 @@ export default function ComparisonForms() {
         <Loading progress={progress} />
       ) : (
         <>
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col sm:flex-row items-center justify-between">
             <ComparisonArea
               value={textA}
               onChange={setTextA}
@@ -57,7 +57,7 @@ export default function ComparisonForms() {
             />
 
             <div className="px-4">
-              <TfiArrowsHorizontal size={20} />
+              <TfiArrowsHorizontal className="size-5 rotate-90 sm:rotate-0 my-3" />
             </div>
 
             <ComparisonArea

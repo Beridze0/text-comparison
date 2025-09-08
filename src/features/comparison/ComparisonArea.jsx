@@ -8,7 +8,7 @@ export default function ComparisonArea({
   placeholder,
 }) {
   return (
-    <div className="min-h-[290px] sm:min-h-[380px] flex-1">
+    <div className="min-h-[290px] w-full sm:min-h-[380px] flex-1">
       {tokens ? (
         <DiffAreaDisplay tokens={tokens} />
       ) : (
