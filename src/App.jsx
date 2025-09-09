@@ -10,9 +10,9 @@ export default function App() {
   return (
     <Routes>
       <Route element={<AppLayout />}>
-        <Route path="/" element={<Navigate to="/comparison" replace />} />
+        <Route path="/" element={<Navigate to="/textcompare" replace />} />
         <Route path="/main" element={<MainPage />} />
-        <Route path="/comparison" element={<ComparisonPage />} />
+        <Route path="/textcompare" element={<ComparisonPage />} />
 
         <Route path="*" element={<NotFoundPage />} />
       </Route>

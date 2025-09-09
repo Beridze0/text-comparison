@@ -8,26 +8,26 @@ export const sidebarItems = [
   {
     label: "მართლმწერი",
     icon: BsSpellcheck,
-    link: "MM",
+    link: "spellchecker",
   },
   {
     label: "ტექსტის შედარება",
     icon: LuLetterText,
-    link: "comparison",
+    link: "textcompare",
   },
   {
     label: "ხმა -> ტექსტი",
     icon: IoMicOutline,
-    link: "12313",
+    link: "speechtotext",
   },
   {
     label: "ტექსტი -> ხმა",
     icon: RiVoiceprintFill,
-    link: "3123",
+    link: "texttospeech",
   },
   {
     label: "PDF კონვერტაცია",
     icon: PiFilesLight,
-    link: "5124",
+    link: "convertor",
   },
 ];
