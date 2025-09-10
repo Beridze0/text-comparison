@@ -11,7 +11,7 @@ export default function ComparisonPage() {
 
   return (
     <div className="p-3 w-full text-sm mt-2">
-      <div className="flex flex-col sm:flex-row items-center justify-between pb-4 border-b border-gray-300">
+      <div className="flex flex-col sm:flex-row items-cesnter justify-between pb-4 border-b border-gray-300">
         <div className="flex w-full sm:w-fit flex-col sm:flex-row items-start sm:items-center gap-4">
           <LanguageSelector
             value={language}
