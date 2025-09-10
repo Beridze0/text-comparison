@@ -3,7 +3,7 @@ import { BiPlusCircle } from "react-icons/bi";
 import ComparisonForm from "../features/comparison/ComparisonForms";
 import Button from "../ui/Button";
 import LanguageSelector from "../ui/LanguageSelector";
-import FormatCheckbox from "../ui/FormatCheckBox";
+import FormatCheckbox from "../ui/FormatCheckbox";
 
 export default function ComparisonPage() {
   const [language, setLanguage] = useState("georgian");
