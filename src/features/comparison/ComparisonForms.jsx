@@ -5,6 +5,7 @@ import Loading from "../../ui/Loading";
 
 import ComparisonArea from "./ComparisonArea";
 import CompareActions from "./CompareActions";
+import { toast } from "react-toastify";
 
 export default function ComparisonForms() {
   const [textA, setTextA] = useState("");
@@ -14,6 +15,10 @@ export default function ComparisonForms() {
   const [progress, setProgress] = useState(0);
 
   function handleCompare() {
+    if (!textA.trim() || !textB.trim()) {
+      toast.error("გთხოვთ შეიყვანოთ ტექსტი");
+      return;
+    }
     setIsLoading(true);
     setProgress(0);
 

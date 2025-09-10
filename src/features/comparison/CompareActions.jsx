@@ -1,4 +1,5 @@
 import React from "react";
+import { toast } from "react-toastify";
 
 export default function CompareActions({ diffs, onCompare, onReset }) {
   return (

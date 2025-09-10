@@ -2,6 +2,7 @@ import React from "react";
 import { Outlet } from "react-router-dom";
 import Sidebar from "./sidebar/components/Sidebar";
 import Navbar from "./navbar/components/Navbar";
+import { ToastContainer } from "react-toastify";
 
 export default function AppLayout() {
   return (
@@ -19,6 +20,16 @@ export default function AppLayout() {
           <Outlet />
         </main>
       </div>
+
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick
+        pauseOnHover
+        draggable
+      />
     </div>
   );
 }
