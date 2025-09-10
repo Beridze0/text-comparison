@@ -42,7 +42,7 @@ export default function SidebarItem({
         `
       }
     >
-      <Icon size={22} />
+      <Icon size={22} className="transition-all duration-300" />
       <span
         className={`transition-all duration-300 overflow-hidden whitespace-nowrap 
     ${
