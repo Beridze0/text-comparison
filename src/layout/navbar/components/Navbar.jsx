@@ -46,12 +46,13 @@ export default function Navbar() {
         <h3 className="text-gray-500 text-sm mb-2">აირჩიე სექცია</h3>
         <ul>
           {sidebarItems.map((item) => (
-            <li key={item.label} className="mb-2 text-black hover:text-black">
+            <li key={item.label} className="mb-2">
               <SidebarItem
                 label={item.label}
                 icon={item.icon}
                 link={item.link}
                 onClick={() => setOpen(false)}
+                isSmallerScreen={true}
               />
             </li>
           ))}

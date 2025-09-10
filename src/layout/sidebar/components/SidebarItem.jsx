@@ -7,6 +7,7 @@ export default function SidebarItem({
   label,
   icon: Icon,
   link,
+  isSmallerScreen = false,
 }) {
   const { isOpen } = useSidebar();
   return (
@@ -24,7 +25,9 @@ export default function SidebarItem({
              : `before:opacity-0 after:opacity-0 `
          }
       
-         before:content-[""] 
+        ${
+          !isSmallerScreen &&
+          ` before:content-[""] 
          before:bg-transparent
          before:absolute before:right-[0px] before:top-[-16px] 
          before:w-4 before:h-4 before:rounded-full 
@@ -34,20 +37,24 @@ export default function SidebarItem({
          after:bg-transparent
          after:absolute after:right-[0px] after:bottom-[-16px]
          after:w-4 after:h-4 after:rounded-full
-         after:shadow-[3px_-3px_0_-1px_#f9fafb]
+         after:shadow-[3px_-3px_0_-1px_#f9fafb]`
+        }
         `
       }
     >
       <Icon size={22} />
-      {isOpen && (
-        <span
-          className={`transition-all duration-300 overflow-hidden whitespace-nowrap ${
-            isOpen ? "opacity-100 w-auto ml-2" : "opacity-0 w-0 ml-0"
-          }`}
-        >
-          {label}
-        </span>
-      )}
+      <span
+        className={`transition-all duration-300 overflow-hidden whitespace-nowrap 
+    ${
+      isSmallerScreen
+        ? "opacity-100 w-auto ml-2 text-black"
+        : isOpen
+        ? "opacity-100 w-auto ml-2"
+        : "opacity-0 w-0 ml-0"
+    }`}
+      >
+        {label}
+      </span>
     </NavLink>
   );
 }
