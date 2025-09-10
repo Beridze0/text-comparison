@@ -16,7 +16,9 @@ export default function ComparisonForms() {
 
   function handleCompare() {
     if (!textA.trim() || !textB.trim()) {
-      toast.error("გთხოვთ შეიყვანოთ ტექსტი");
+      toast.error("გთხოვთ შეიყვანოთ ტექსტი", {
+        toastId: "empty-text",
+      });
       return;
     }
     setIsLoading(true);
