@@ -21,7 +21,7 @@ export default function SidebarItem({
            isActive
              ? `bg-gray-50 text-black rounded-r-none hover:text-black
                 before:opacity-100 after:opacity-100`
-             : `before:opacity-0 after:opacity-0 hover:text-white`
+             : `before:opacity-0 after:opacity-0 `
          }
       
          before:content-[""] 
